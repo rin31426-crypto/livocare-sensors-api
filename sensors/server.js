@@ -9,7 +9,6 @@ app.use(express.json());
 
 let readings = [];
 
-// استقبال البيانات من ESP32
 app.post('/api/readings', (req, res) => {
   console.log('📥 Received:', req.body);
   
@@ -40,7 +39,6 @@ app.post('/api/readings', (req, res) => {
   });
 });
 
-// آخر قراءة
 app.get('/api/readings/latest', (req, res) => {
   if (readings.length === 0) {
     return res.json({ status: 'success', data: null });
@@ -48,12 +46,10 @@ app.get('/api/readings/latest', (req, res) => {
   res.json({ status: 'success', data: readings[readings.length - 1] });
 });
 
-// جميع القراءات
 app.get('/api/readings/all', (req, res) => {
   res.json({ status: 'success', count: readings.length, data: readings });
 });
 
-// صحة الخدمة
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', totalReadings: readings.length });
 });
